@@ -51,3 +51,22 @@ ORDER BY PurchasingOrder
     FROM OpenOrders
 
 Important! - I will continue tommorow because here is 3:44 AM xD
+
+4. CREATE TRIGGER t_updateDelivDate  
+   ON OpenOrders
+   AFTER UPDATE   
+   AS 
+   BEGIN
+	IF UPDATE([Pending QTY])
+	BEGIN
+	      UPDATE OpenOrders 
+	      SET [Delivery Date] = GETDATE()
+	      FROM OpenOrders o
+	      INNER JOIN Inserted I 
+	      ON (o.PurchasingOrder + o.ItemLine)
+	      = 
+	      (I.PurchasingOrder + I.ItemLine)
+	      WHERE I.[Pending QTY] = 0;
+         END
+    END
+    GO
