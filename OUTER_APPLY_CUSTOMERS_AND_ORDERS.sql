@@ -16,8 +16,8 @@ ORDER BY TOTALORDERS ASC -- Sort by total orders in ascending order; customers w
 SELECT *
 FROM Orders o
 OUTER APPLY (SELECT
-					         AVG(TotalAmount) AS TOTALAVG
-					         FROM Orders o2
-					         WHERE o.CustomerID = o2.CustomerID
-			      ) LFD
+		    AVG(TotalAmount) AS TOTALAVG
+		    FROM Orders o2
+		    WHERE o.CustomerID = o2.CustomerID
+            ) LFD
 WHERE o.TotalAmount > LFD.TOTALAVG  
